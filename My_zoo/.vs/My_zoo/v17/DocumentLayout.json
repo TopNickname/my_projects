@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Hash.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\Hash.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Zoo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\Zoo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\USERS\\TOP_NICKNAME\\SOURCE\\REPOS\\VECTORN\\VECTORN\\ARRAYN.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\VectorN\\VectorN\\VectorN.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\My_zoo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\My_zoo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Animals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\Animals.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Vector2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\Vector2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{39509CC7-FFF7-4BBB-84B3-39B5410553AD}|My_zoo\\My_zoo.vcxproj|solutionrelative:My_zoo\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "My_zoo.cpp",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\My_zoo.cpp",
+              "RelativeDocumentMoniker": "My_zoo\\My_zoo.cpp",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\My_zoo.cpp",
+              "RelativeToolTip": "My_zoo\\My_zoo.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-05T10:29:02.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Hash.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Hash.h",
+              "RelativeDocumentMoniker": "My_zoo\\Hash.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Hash.h",
+              "RelativeToolTip": "My_zoo\\Hash.h",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAswB8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-22T13:31:53.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Zoo.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Zoo.h",
+              "RelativeDocumentMoniker": "My_zoo\\Zoo.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Zoo.h",
+              "RelativeToolTip": "My_zoo\\Zoo.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-05T10:24:07.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "game.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\game.h",
+              "RelativeDocumentMoniker": "My_zoo\\game.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\game.h",
+              "RelativeToolTip": "My_zoo\\game.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-05T10:05:36.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Vector2.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Vector2.h",
+              "RelativeDocumentMoniker": "My_zoo\\Vector2.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Vector2.h",
+              "RelativeToolTip": "My_zoo\\Vector2.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-22T12:07:55.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ArrayN.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\VectorN\\VectorN\\ArrayN.h",
+              "RelativeDocumentMoniker": "..\\VectorN\\VectorN\\ArrayN.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\VectorN\\VectorN\\ArrayN.h",
+              "RelativeToolTip": "..\\VectorN\\VectorN\\ArrayN.h",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAswBUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-22T14:43:12.274Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VectorN.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\VectorN\\VectorN\\VectorN.h",
+              "RelativeDocumentMoniker": "..\\VectorN\\VectorN\\VectorN.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\VectorN\\VectorN\\VectorN.h",
+              "RelativeToolTip": "..\\VectorN\\VectorN\\VectorN.h",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAswBIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-22T14:40:07.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Animals.h",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Animals.h",
+              "RelativeDocumentMoniker": "My_zoo\\Animals.h",
+              "ToolTip": "C:\\Users\\Top_nickname\\source\\repos\\My_zoo\\My_zoo\\Animals.h",
+              "RelativeToolTip": "My_zoo\\Animals.h",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAA8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-15T14:15:44.861Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

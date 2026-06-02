@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Top_nickname\\source\\repos\\timrar\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D60E5163-D14B-4D34-AECB-115615E23045}|timrar\\timrar.vcxproj|C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_1f1221.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36FE3A1A-8BB9-49FA-9EEC-9CCC242D33E1}|encode\\encode.vcxproj|C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_8e1c1f.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "deepseek_cpp_20260513_8e1c1f.cpp",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_8e1c1f.cpp",
+              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\deepseek_cpp_20260513_8e1c1f.cpp",
+              "ToolTip": "C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_8e1c1f.cpp",
+              "RelativeToolTip": "..\\..\\..\\Downloads\\deepseek_cpp_20260513_8e1c1f.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-13T12:45:58.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "deepseek_cpp_20260513_1f1221.cpp",
+              "DocumentMoniker": "C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_1f1221.cpp",
+              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\deepseek_cpp_20260513_1f1221.cpp",
+              "ToolTip": "C:\\Users\\Top_nickname\\Downloads\\deepseek_cpp_20260513_1f1221.cpp",
+              "RelativeToolTip": "..\\..\\..\\Downloads\\deepseek_cpp_20260513_1f1221.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA4AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-13T12:45:56.497Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

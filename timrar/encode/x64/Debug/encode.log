@@ -1,0 +1,3 @@
+﻿  deepseek_cpp_20260513_8e1c1f.cpp
+C:\Users\Top_nickname\Downloads\deepseek_cpp_20260513_8e1c1f.cpp(100,20): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  encode.vcxproj -> C:\Users\Top_nickname\source\repos\timrar\x64\Debug\encode.exe
