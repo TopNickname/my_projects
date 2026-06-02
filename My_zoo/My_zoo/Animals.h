@@ -1,29 +1,30 @@
 #pragma once
 #include "Vector2.h"
 #include <random>
+
 #pragma region Animal
-
-
 
 class Animal {
 protected:
-	static enum class Shape {
+	enum class Shape {
 		circle, cube, triangle
 	};
-	static enum class Color {
+	enum class Color {
 		red,green,blue,yellow,brown,purple,orange,cyan,black,white
 	};
-	double size;
-	double HP;
-	Vector2 pos;
+	double size=1.0;
+	double HP=10.0;
+	Vector2 pos{ 0.0,0.0 };
 	Shape shape = Shape::circle;
+	Color color = Color::black;
 	double damage;
 	virtual void do_some_noise();
 	virtual void attack();
 
 public:
-	virtual void move(Vector2);
-	void tp(Vector2);
+	virtual void move(Vector2 p);
+	void tp(Vector2 p);
+	virtual ~Animal() = default;
 };
 
 #pragma endregion
@@ -38,7 +39,12 @@ public:
 };
 
 class Minecraft : public Animal {
-	Shape shape = Shape::cube;
+	
+public:
+	Minecraft() {
+		shape = Shape::cube;
+		color = Color::green;
+	}
 };
 
 class Bird :public Animal {
@@ -47,7 +53,7 @@ public:
 	void fly();
 };
 
-class Fish {
+class Fish : public Animal {
 	
 public:
 	void swim();

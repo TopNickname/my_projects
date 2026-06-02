@@ -10,4 +10,8 @@ public:
 	Vector2(const Base& other) : Base(other) {}
 	double& x() { return (*this)[0]; }
 	double& y() { return (*this)[1]; }
+	Vector2(double _x,double _y){
+		(*this)[0] = _x;
+		(*this)[1] = _y;
+	}
 };

@@ -2,4 +2,6 @@
 C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,13): warning C4984: "if constexpr" — расширение языка C++17
   (компиляция исходного файла "My_zoo.cpp")
   
-  My_zoo.vcxproj -> C:\my_programs\my_projects\My_zoo\x64\Debug\My_zoo.exe
+C:\my_programs\my_projects\My_zoo\My_zoo\Animals.h(18,14): error C2059: синтаксическая ошибка: константа
+  (компиляция исходного файла "My_zoo.cpp")
+  
