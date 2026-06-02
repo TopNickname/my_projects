@@ -5,14 +5,19 @@
 
 int main() {
         std::string str1 = "Hello, world!";
-        std::string str2 = "Hello, world!";
-        //uint32_t seed = 42;  // любое 32-битное число
-        int tmp = 0;
-        std::string tmp1 = "123d";
-        std_plus::VectorN<int> v{ 1, 2, 3 };
-        std::cout << std_plus::HashFunction<std::string>(str1) << std::endl;
-        std::cout << std_plus::HashFunction<std::string>(str2) << std::endl;
-        std::cout << std_plus::HashFunction<int>(tmp) << std::endl;
+        std_plus::HashSet<std::string> H;
+        std_plus::HashTable<int,std::string> H1;
+        for (int i = 0; i < 10; i++) {
+            H.add(str1);
+            H1.add(i, str1);
+            str1 += 'a'+(i)%20;
+        }
+        for (auto x : H) {
+            std::cout << x << std::endl;
+        }
+        for (auto x : H1) {
+            std::cout << x.first<<' '<<x.second << std::endl;
+        }
         return 0;
 }
 

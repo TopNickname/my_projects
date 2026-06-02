@@ -1,8 +1,5 @@
 ﻿  My_zoo.cpp
-C:\Users\Top_nickname\source\repos\My_zoo\My_zoo\Hash.h(83,9): warning C4984: "if constexpr" — расширение языка C++17
+C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(51,13): warning C4984: "if constexpr" — расширение языка C++17
   (компиляция исходного файла "My_zoo.cpp")
   
-C:\Users\Top_nickname\source\repos\My_zoo\My_zoo\Hash.h(99,42): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  (компиляция исходного файла "My_zoo.cpp")
-  
-  My_zoo.vcxproj -> C:\Users\Top_nickname\source\repos\My_zoo\x64\Debug\My_zoo.exe
+  My_zoo.vcxproj -> C:\my_programs\my_projects\My_zoo\x64\Debug\My_zoo.exe

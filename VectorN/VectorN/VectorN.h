@@ -27,7 +27,8 @@ namespace std_plus {
 			iterator& operator--();
 			bool operator==(iterator x);
 			bool operator!=(iterator x);
-			T operator*();
+			const T& operator*() const;
+			T& operator*();
 		};
 
 	public:
@@ -586,7 +587,12 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline T VectorN<T>::iterator::operator*() {
+	inline T& VectorN<T>::iterator::operator*() {
+		return *(this->data + this->i);
+	}
+
+	template<typename T>
+	inline const T& VectorN<T>::iterator::operator*() const {
 		return *(this->data + this->i);
 	}
 

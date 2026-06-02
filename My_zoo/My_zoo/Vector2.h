@@ -1,5 +1,5 @@
 #pragma once
-//#include "VectorN.h"
+#include "VectorN.h"
 #include "ArrayN.h"
 #include <cmath>
 
