@@ -1,5 +1,5 @@
 ﻿  My_zoo.cpp
-C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(51,13): warning C4984: "if constexpr" — расширение языка C++17
+C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,13): warning C4984: "if constexpr" — расширение языка C++17
   (компиляция исходного файла "My_zoo.cpp")
   
   My_zoo.vcxproj -> C:\my_programs\my_projects\My_zoo\x64\Debug\My_zoo.exe

@@ -13,16 +13,19 @@ namespace std_plus {
     // ============================================================
     namespace detail {
 
-        // MurmurHash2 – используется и HashTable, и HashSet
+        // Реализация MurmurHash2 (32-битная).
+        // Выбрана из-за хорошего распределения и скорости для коротких ключей.
+        // Параметры: m = 0x5bd1e995, r = 24 – стандартные константы алгоритма.
         inline uint32_t murmur_hash2(const void* key_ptr, int len, uint32_t seed) {
             const uint32_t m = 0x5bd1e995;
             const int r = 24;
-            uint32_t h = seed ^ len;
+            uint32_t h = seed ^ len;               // начальное смешивание с длиной
             const unsigned char* data = static_cast<const unsigned char*>(key_ptr);
 
+            // Обработка по 4 байта
             while (len >= 4) {
                 uint32_t k;
-                std::memcpy(&k, data, 4);
+                std::memcpy(&k, data, 4);          // избегаем strict aliasing
                 k *= m;
                 k ^= k >> r;
                 k *= m;
@@ -32,6 +35,7 @@ namespace std_plus {
                 len -= 4;
             }
 
+            // Обработка оставшихся 1-3 байт (порядок байт не важен для хеша)
             switch (len) {
             case 3: h ^= data[2] << 16;
             case 2: h ^= data[1] << 8;
@@ -39,13 +43,16 @@ namespace std_plus {
                 h *= m;
             }
 
+            // Финальное перемешивание для лавинного эффекта
             h ^= h >> 13;
             h *= m;
             h ^= h >> 15;
             return h;
         }
 
-        // Единая точка хеширования значения
+        // Универсальная точка входа для хеширования значения.
+        // Различает std::string (хешируем содержимое) и тривиально копируемые типы (хешируем побайтово).
+        // Если T не std::string и не тривиально копируем — static_assert.
         template<typename T>
         uint32_t hash_value(const T& value, uint32_t seed = 0) {
             if constexpr (std::is_same_v<T, std::string>) {
@@ -60,7 +67,11 @@ namespace std_plus {
             }
         }
 
-        // Общий итератор для обхода корзин
+        // Общий итератор для HashTable и HashSet.
+        // Параметризован типом таблицы Table и флагом IsConst.
+        // Хранит указатель на таблицу, индекс корзины и индекс внутри корзины.
+        // advance_to_next() переводит итератор к следующему элементу,
+        // пропуская пустые корзины.
         template<typename Table, bool IsConst>
         class HashIterator {
         public:
@@ -75,6 +86,8 @@ namespace std_plus {
             size_t elem_idx;
 
             void advance_to_next() {
+                // Пока не вышли за пределы корзин и текущий индекс за концом корзины,
+                // переходим к следующей корзине.
                 while (bucket_idx < table->data.size() &&
                     elem_idx >= table->data[bucket_idx].size()) {
                     ++bucket_idx;
@@ -85,6 +98,7 @@ namespace std_plus {
         public:
             HashIterator(table_type* t, size_t b, size_t e)
                 : table(t), bucket_idx(b), elem_idx(e) {
+                // Если попали в пустую корзину (elem_idx >= size), продвигаемся
                 if (bucket_idx < table->data.size() &&
                     elem_idx >= table->data[bucket_idx].size())
                     advance_to_next();
@@ -116,47 +130,57 @@ namespace std_plus {
             }
         };
 
-        // Вспомогательный rehash – параметризуется функтором получения ключа
+        // Вспомогательная функция rehash.
+        // Параметризуется типом вектора корзин (BucketVector) и функтором GetKey,
+        // который извлекает ключ из элемента (для HashTable – .first, для HashSet – сам элемент).
+        // Перераспределяет все элементы в новые корзины.
         template<typename BucketVector, typename GetKey>
         void rehash_impl(BucketVector& data, size_t new_bucket_count, GetKey&& get_key) {
             BucketVector new_data(new_bucket_count);
             for (size_t b = 0; b < data.size(); ++b) {
                 for (size_t e = 0; e < data[b].size(); ++e) {
                     const auto& elem = data[b][e];
+                    // Вычисляем новый индекс по ключу, seed = 0 как и везде
                     size_t hash = detail::hash_value(get_key(elem), 0);
                     size_t idx = hash % new_bucket_count;
                     new_data[idx].push_back(elem);
                 }
             }
-            data.swap(new_data);
+            data.swap(new_data);   // эффективный обмен без лишнего копирования
         }
     } // namespace detail
 
     // ============================================================
-    // HashTable
+    // HashTable – хеш-таблица (ключ -> значение)
     // ============================================================
     template<typename key, typename T>
     class HashTable {
-        // Дружественный итератор
+        // Дружественный итератор, чтобы иметь доступ к приватному полю data
         template<typename, bool> friend class detail::HashIterator;
 
     public:
         using value_type = std::pair<key, T>;
 
     private:
+        // data – массив корзин, каждая корзина — VectorN пар (ключ, значение)
         VectorN<VectorN<value_type>> data;
-        size_t count;
+        size_t count;   // общее количество элементов
 
+        // Перехеширование: создаёт новую таблицу с new_bucket_count корзин
+        // и переносит элементы с помощью rehash_impl, передавая лямбду для извлечения ключа.
         void rehash(size_t new_bucket_count) {
             detail::rehash_impl(data, new_bucket_count,
                 [](const value_type& pair) -> const key& { return pair.first; });
         }
 
     public:
+        // Статическая функция хеширования, доступная пользователю.
+        // По умолчанию seed = 0 (можно менять для получения разных последовательностей).
         static uint32_t HashFunction(const key& k, uint32_t seed = 0) {
             return detail::hash_value(k, seed);
         }
 
+        // Конструкторы: по умолчанию 8 корзин; явно можно задать количество.
         HashTable() : data(8), count(0) {}
         explicit HashTable(size_t bucket_count) : data(bucket_count), count(0) {
             if (bucket_count == 0)
@@ -167,6 +191,8 @@ namespace std_plus {
         size_t bucket_count() const noexcept { return data.size(); }
         bool empty()         const noexcept { return count == 0; }
 
+        // Добавление или обновление значения по ключу.
+        // Если количество элементов >= количества корзин, таблица удваивается (load factor ~ 1.0).
         void add(const key& k, const T& v) {
             if (count >= data.size())
                 rehash(data.size() * 2);
@@ -174,16 +200,19 @@ namespace std_plus {
             size_t hash = HashFunction(k, 0);
             size_t idx = hash % data.size();
             VectorN<value_type>& bucket = data[idx];
+            // Проверяем, нет ли уже такого ключа в корзине
             for (auto& pair : bucket) {
                 if (pair.first == k) {
                     pair.second = v;
                     return;
                 }
             }
+            // Новый элемент
             bucket.push_back(value_type(k, v));
             ++count;
         }
 
+        // Проверка наличия ключа
         bool contains(const key& k) const {
             size_t hash = HashFunction(k, 0);
             size_t idx = hash % data.size();
@@ -192,6 +221,9 @@ namespace std_plus {
             return false;
         }
 
+        // Оператор [] – возвращает ссылку на значение.
+        // Если ключ отсутствует, вставляет пару (k, T{}) и возвращает ссылку на значение.
+        // Может вызвать рехеширование, после чего индекс пересчитывается.
         T& operator[](const key& k) {
             size_t hash = HashFunction(k, 0);
             size_t idx = hash % data.size();
@@ -199,8 +231,10 @@ namespace std_plus {
             for (auto& pair : bucket)
                 if (pair.first == k) return pair.second;
 
+            // Ключ не найден – нужно вставить.
             if (count >= data.size()) {
                 rehash(data.size() * 2);
+                // После rehash старый idx недействителен, пересчитываем.
                 idx = hash % data.size();
                 auto& new_bucket = data[idx];
                 new_bucket.push_back(value_type(k, T{}));
@@ -214,6 +248,7 @@ namespace std_plus {
             }
         }
 
+        // Константный доступ с проверкой (бросает исключение, если ключа нет)
         const T& at(const key& k) const {
             size_t hash = HashFunction(k, 0);
             size_t idx = hash % data.size();
@@ -222,13 +257,14 @@ namespace std_plus {
             throw std::out_of_range("HashTable::at: key not found");
         }
 
+        // Удаление по ключу. Возвращает true, если элемент был удалён.
         bool erase(const key& k) {
             size_t hash = HashFunction(k, 0);
             size_t idx = hash % data.size();
             auto& bucket = data[idx];
             for (size_t i = 0; i < bucket.size(); ++i) {
                 if (bucket[i].first == k) {
-                    bucket.erase(i, 1);
+                    bucket.erase(i, 1);   // VectorN::erase(i, count)
                     --count;
                     return true;
                 }
@@ -236,11 +272,14 @@ namespace std_plus {
             return false;
         }
 
+        // Полная очистка таблицы (корзины остаются того же размера)
         void clear() {
             for (auto& bucket : data) bucket.clear();
             count = 0;
         }
 
+        // Итераторы: обход всех элементов в порядке корзин.
+        // begin() возвращает первый элемент, end() — "за последним".
         using iterator = detail::HashIterator<HashTable, false>;
         using const_iterator = detail::HashIterator<HashTable, true>;
 
@@ -253,11 +292,11 @@ namespace std_plus {
     };
 
     // ============================================================
-    // HashSet
+    // HashSet – множество уникальных элементов
     // ============================================================
     template<typename T>
     class HashSet {
-        // Дружественный итератор
+        // Дружественный итератор для доступа к data
         template<typename, bool> friend class detail::HashIterator;
 
     public:
@@ -267,6 +306,7 @@ namespace std_plus {
         VectorN<VectorN<T>> data;
         size_t count;
 
+        // Перехеширование с лямбдой, возвращающей сам элемент (ключ = значение)
         void rehash(size_t new_bucket_count) {
             detail::rehash_impl(data, new_bucket_count,
                 [](const T& elem) -> const T& { return elem; });
@@ -300,9 +340,11 @@ namespace std_plus {
             return false;
         }
 
+        // Все итераторы HashSet – константные (элементы множества нельзя изменять через итератор).
         using const_iterator = detail::HashIterator<HashSet, true>;
-        using iterator = const_iterator;
+        using iterator = const_iterator;   // для совместимости с STL-интерфейсом
 
+        // Поиск элемента, возвращает итератор на него или end()
         const_iterator find(const T& value) const {
             size_t hash = HashFunction(value, 0);
             size_t idx = hash % data.size();
@@ -312,6 +354,8 @@ namespace std_plus {
             return end();
         }
 
+        // Вставка: возвращает пару (итератор на элемент, был ли вставлен).
+        // При превышении load factor 1.0 происходит рехеш.
         std::pair<iterator, bool> insert(const T& value) {
             size_t hash = HashFunction(value, 0);
             size_t idx = hash % data.size();
@@ -323,6 +367,7 @@ namespace std_plus {
             if (count >= data.size())
                 rehash(data.size() * 2);
 
+            // После возможного рехеша индекс мог измениться
             idx = hash % data.size();
             auto& new_bucket = data[idx];
             new_bucket.push_back(value);
@@ -330,6 +375,7 @@ namespace std_plus {
             return { const_iterator(this, idx, new_bucket.size() - 1), true };
         }
 
+        // Удобный метод add (то же, что insert, но без возврата результата)
         void add(const T& value) { insert(value); }
 
         bool erase(const T& value) {
@@ -346,6 +392,7 @@ namespace std_plus {
             return false;
         }
 
+        // Итераторы begin/end. Для пустого контейнера begin() == end().
         iterator begin() { return empty() ? end() : const_iterator(this, 0, 0); }
         iterator end() { return const_iterator(this, data.size(), 0); }
         const_iterator begin() const { return cbegin(); }

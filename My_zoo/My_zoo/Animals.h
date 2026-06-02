@@ -41,10 +41,10 @@ class Minecraft : public Animal {
 	Shape shape = Shape::cube;
 };
 
-class  {
+class Bird :public Animal {
 
 public:
-	void do_some_usless_things();
+	void fly();
 };
 
 class Fish {
@@ -81,14 +81,26 @@ public:
 	void suddenly_die();
 };
 
-class Shark {
+class Shark : public Fish {
 	
 public:
 	void do_some_buisness();
 };
 
-class Just_a_fish {
+class Just_a_fish : public Fish {
 
+};
+
+class Duck : public Bird {
+
+};
+
+class Creeper : public Minecraft {
+
+public:
+	void explode() {
+
+	}
 };
 
 #pragma endregion
