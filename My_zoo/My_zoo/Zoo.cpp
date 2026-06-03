@@ -19,7 +19,6 @@ Vectori2 Zoo::findFreeRandomPosition() const {
 		int x = distX(gen);
 		int y = distY(gen);
 		Vectori2 pos(x, y);
-		// проверим, что клетка свободна от других животных
 		bool occupied = false;
 		for (const auto& pair : animals) {
 			if (pair.second->getPos().x() == x && pair.second->getPos().y() == y) {
@@ -30,8 +29,11 @@ Vectori2 Zoo::findFreeRandomPosition() const {
 		if (!occupied)
 			return pos;
 	}
-	// fallback
 	return Vectori2(0, 0);
+}
+
+Vectori2 Zoo::getRandomFreePosition() const {
+	return findFreeRandomPosition();
 }
 
 Animal* Zoo::addAnimal(std::unique_ptr<Animal> animal) {
@@ -40,13 +42,18 @@ Animal* Zoo::addAnimal(std::unique_ptr<Animal> animal) {
 	int id = nextId++;
 	animal->id = id;
 
-	// Установка свободной позиции
-	Vectori2 freePos = findFreeRandomPosition();
-	animal->setPos(freePos);
+	// Если позиция не задана (осталась (0,0)), ищем свободную клетку
+	if (animal->getPos().x() == 0 && animal->getPos().y() == 0) {
+		animal->setPos(findFreeRandomPosition());
+	}
 
 	std::shared_ptr<Animal> shared = std::move(animal);
 	animals.add(id, shared);
 	return shared.get();
+}
+
+void Zoo::removeAnimal(int id) {
+	animals.erase(id);
 }
 
 bool Zoo::moveAnimal(int animalId, Vectori2 newPos) {

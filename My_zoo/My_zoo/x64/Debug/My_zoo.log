@@ -1,17 +1,7 @@
-﻿  Animals.cpp
-  Game.cpp
+﻿  Game.cpp
 C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,4): warning C4984: "if constexpr" — расширение языка C++17
   (компиляция исходного файла "Game.cpp")
   
-C:\my_programs\my_projects\My_zoo\My_zoo\Game.cpp(260,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Grid.cpp
-  Zoo.cpp
-C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,4): warning C4984: "if constexpr" — расширение языка C++17
-  (компиляция исходного файла "Zoo.cpp")
-  
-  main.cpp
-C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,4): warning C4984: "if constexpr" — расширение языка C++17
-  (компиляция исходного файла "main.cpp")
-  
-  Создание кода...
+C:\my_programs\my_projects\My_zoo\My_zoo\Game.cpp(140,1): warning C4566: символ, представленный универсальным именем символа "\u2192", невозможно представить в текущей кодовой странице (1251)
+C:\my_programs\my_projects\My_zoo\My_zoo\Game.cpp(141,1): warning C4566: символ, представленный универсальным именем символа "\u2192", невозможно представить в текущей кодовой странице (1251)
   My_zoo.vcxproj -> C:\my_programs\my_projects\My_zoo\x64\Debug\My_zoo.exe

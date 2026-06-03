@@ -28,9 +28,20 @@ protected:
 
 	static std::string colorToAnsiFG(Animal::Color c);
 	static std::string terrainToAnsiBG(Terrain t);
-	static char shapeToChar(Animal::Shape s);
 
 private:
+	void enableRawMode();
+	void disableRawMode();
+	char readChar();
+	bool isKeyPressed();
+
+	enum class AddState { Normal, EnterName, EnterX, EnterY };
+	AddState addState = AddState::Normal;
+	int  chosenAnimalType = 0;
+	std::string inputBuffer;
+	std::string nameBuffer;   // сохраняет введённое имя
+	int pendingX = 0;         // сохраняет X-координату
+
 	int FPS = 5;
 	Zoo zoo;
 	bool running = true;
@@ -46,9 +57,13 @@ private:
 
 	std::mt19937 rng{ std::random_device{}() };
 
-	static bool kbhit();
-	static char getch();
-
 	void restoreTerminal();
 	bool altBufferActive = false;
+
+#ifdef _WIN32
+#else
+	struct termios orig_termios;
+	char pendingChar = 0;
+	bool havePending = false;
+#endif
 };

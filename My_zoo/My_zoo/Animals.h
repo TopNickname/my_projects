@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include <string>
+#include <random>
 
 enum class Terrain {
 	Land,
@@ -13,7 +14,6 @@ public:
 		circle, cube, triangle
 	};
 
-	// Расширенная палитра
 	enum class Color {
 		red, green, blue, yellow, brown, purple, orange, cyan, black, white,
 		pink, lime, teal, maroon, navy, olive, silver, gold
@@ -21,9 +21,8 @@ public:
 
 	virtual ~Animal() = default;
 
-	// Чисто виртуальные – каждый конкретный вид должен озвучить себя
 	virtual std::string getSound() const = 0;
-	virtual std::string species() const = 0;   // "Cat", "Bear" и т.д.
+	virtual std::string species() const = 0;
 
 	static char shapeToChar(Shape s);
 
@@ -35,6 +34,7 @@ public:
 	Shape    getShape()     const { return shape; }
 	Color    getColor()     const { return color; }
 	int      getID()        const { return id; }
+	std::string getName()   const { return name; }
 
 	// --- Сеттеры ---
 	void setPos(Vectori2 p) { pos = p; }
@@ -43,6 +43,7 @@ public:
 	void setDamage(double d) { damage = d; }
 	void setShape(Shape s) { shape = s; }
 	void setColor(Color c) { color = c; }
+	void setName(const std::string& n) { name = n; }
 
 	virtual bool can_traverse(Terrain terrain) const = 0;
 	virtual void move(Vectori2 p);
@@ -51,7 +52,7 @@ public:
 	friend class Zoo;
 
 protected:
-	Animal() = default;   // Нельзя создать Animal напрямую
+	Animal() = default;
 
 	double   size = 1.0;
 	double   HP = 10.0;
@@ -60,22 +61,22 @@ protected:
 	Color    color = Color::black;
 	double   damage = 0.0;
 	int      id = 0;
+	std::string name = "Unnamed";
 
 	virtual void do_some_noise();
 	virtual void attack();
 };
 
-// --- Абстрактное млекопитающее ---
+// --- Абстрактные промежуточные классы ---
 class Mammal : public Animal {
 protected:
 	Mammal() = default;
 	double fluffiness = 0.5;
 public:
 	bool can_traverse(Terrain terrain) const override;
-	virtual std::string furDescription() const = 0;  // делает класс абстрактным
+	virtual std::string furDescription() const = 0;
 };
 
-// --- Абстрактный "майнкрафт-стиль" ---
 class Minecraft : public Animal {
 protected:
 	Minecraft() = default;
@@ -84,7 +85,6 @@ public:
 	virtual bool isHostile() const = 0;
 };
 
-// --- Абстрактная птица ---
 class Bird : public Animal {
 protected:
 	Bird() = default;
@@ -94,7 +94,6 @@ public:
 	virtual int wingSpan() const = 0;
 };
 
-// --- Абстрактная рыба ---
 class Fish : public Animal {
 protected:
 	Fish() = default;
@@ -105,7 +104,6 @@ public:
 };
 
 // --- Конкретные виды ---
-
 class Cat : public Mammal {
 	bool is_killer_mode_on = false;
 public:
@@ -157,7 +155,7 @@ public:
 	Duck();
 	std::string getSound() const override { return "Quack!"; }
 	std::string species()   const override { return "Duck"; }
-	int wingSpan()          const override { return 60; }  // см
+	int wingSpan()          const override { return 60; }
 };
 
 class Creeper : public Minecraft {

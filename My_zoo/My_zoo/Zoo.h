@@ -10,14 +10,13 @@ class Zoo {
 	std_plus::HashTable<int, std::shared_ptr<Animal>> animals;
 	int nextId = 1;
 
-	// Ищет случайную свободную клетку (пытается до 100 раз)
 	Vectori2 findFreeRandomPosition() const;
 
 public:
 	Zoo(int gridWidth, int gridHeight);
 
-	// Теперь возвращает сырой указатель на созданное животное
 	Animal* addAnimal(std::unique_ptr<Animal> animal);
+	void removeAnimal(int id);
 
 	bool moveAnimal(int animalId, Vectori2 newPos);
 	bool moveAnimalRelative(int animalId, int dx, int dy);
@@ -29,4 +28,6 @@ public:
 	const Grid& getGrid() const;
 
 	const std_plus::HashTable<int, std::shared_ptr<Animal>>& getAnimals() const;
+
+	Vectori2 getRandomFreePosition() const; // новый публичный метод
 };
