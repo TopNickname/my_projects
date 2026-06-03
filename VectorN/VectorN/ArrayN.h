@@ -45,7 +45,7 @@ namespace std_plus {
 		T operator*(const ArrayN<T, N>& v) const;
 		ArrayN operator*(const T c) const;
 		double length() const;
-		ArrayN norm() const;
+		ArrayN normalize() const;
 		void abs();
 #pragma endregion
 	};
@@ -316,7 +316,7 @@ namespace std_plus {
 	}
 
 	template<typename T, const size_t N>
-	inline ArrayN<T, N> ArrayN<T, N>::norm() const {
+	inline ArrayN<T, N> ArrayN<T, N>::normalize() const {
 		return (*this) * (1.0 / length());
 	}
 

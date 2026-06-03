@@ -126,13 +126,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animals.cpp" />
-    <ClCompile Include="My_zoo.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Zoo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\VectorN\VectorN\ArrayN.h" />
     <ClInclude Include="..\..\VectorN\VectorN\VectorN.h" />
     <ClInclude Include="Animals.h" />
-    <ClInclude Include="game.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Zoo.h" />

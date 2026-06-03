@@ -1,7 +1,12 @@
-﻿  My_zoo.cpp
-C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,13): warning C4984: "if constexpr" — расширение языка C++17
-  (компиляция исходного файла "My_zoo.cpp")
+﻿  Animals.cpp
+  Grid.cpp
+  main.cpp
+C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,4): warning C4984: "if constexpr" — расширение языка C++17
+  (компиляция исходного файла "main.cpp")
   
-C:\my_programs\my_projects\My_zoo\My_zoo\Animals.h(18,14): error C2059: синтаксическая ошибка: константа
-  (компиляция исходного файла "My_zoo.cpp")
+  Zoo.cpp
+C:\my_programs\my_projects\My_zoo\My_zoo\Hash.h(58,4): warning C4984: "if constexpr" — расширение языка C++17
+  (компиляция исходного файла "Zoo.cpp")
   
+  Создание кода...
+  My_zoo.vcxproj -> C:\my_programs\my_projects\My_zoo\x64\Debug\My_zoo.exe

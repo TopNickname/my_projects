@@ -15,9 +15,9 @@ namespace std_plus {
 		size_t vsize = 0, memory_size = 0;
 		T* mem;
 		bool is_string = false;
-		void init(size_t n, const T& el=T()) ;
+		void init(size_t n, const T& el = T());
 		void mem_resize(size_t new_size);
-		
+
 		class iterator {
 			T* data;
 			size_t i;
@@ -42,7 +42,7 @@ namespace std_plus {
 		VectorN(std::initializer_list<T> list);
 
 		template<size_t N>
-		VectorN(const T (&arr)[N]);
+		VectorN(const T(&arr)[N]);
 		//template<size_t N>
 		//VectorN(const std_plus::ArrayN<T,N> &arr);
 		~VectorN();
@@ -80,7 +80,7 @@ namespace std_plus {
 		bool operator<=(const VectorN<T>& v) const;
 		bool operator>=(const VectorN<T>& v) const;
 		bool operator!=(const VectorN<T>& v) const;
-		
+
 
 #pragma region math
 		VectorN operator+(const VectorN<T>& v) const;
@@ -88,7 +88,8 @@ namespace std_plus {
 		VectorN& operator+=(const VectorN<T>& v);
 		VectorN& operator-=(const VectorN<T>& v);
 		T operator*(const VectorN<T>& v) const;
-		double norm() const;
+		double length() const;
+		void normalize();
 		void abs();
 #pragma endregion
 	};
@@ -154,29 +155,29 @@ namespace std_plus {
 #pragma region constructors_and_assignment
 
 	template<typename T>
-	inline VectorN<T>& VectorN<T>::operator=(VectorN<T> v)  {
+	inline VectorN<T>& VectorN<T>::operator=(VectorN<T> v) {
 		swap(v);
 		return *this;
 	}
 
 	template<typename T>
-	inline VectorN<T>::VectorN(size_t n, const T& el)  {
+	inline VectorN<T>::VectorN(size_t n, const T& el) {
 		init(n, el);
 	}
 
 	template<typename T>
-	inline VectorN<T>::VectorN(size_t n)  {
+	inline VectorN<T>::VectorN(size_t n) {
 		init(n);
 	}
 
 	template<typename T>
-	inline VectorN<T>::VectorN()  {
+	inline VectorN<T>::VectorN() {
 		init(0);
 	}
 
 	template<typename T>
 	template<size_t N>
-	inline VectorN<T>::VectorN(const T(&arr)[N])  {
+	inline VectorN<T>::VectorN(const T(&arr)[N]) {
 		init(N);
 		for (size_t i = 0; i < N; i++) {
 			mem[i] = arr[i];
@@ -194,14 +195,14 @@ namespace std_plus {
 	*/
 
 	template<typename T>
-	inline VectorN<T>::VectorN(std::initializer_list<T> list)  {
+	inline VectorN<T>::VectorN(std::initializer_list<T> list) {
 		size_t n = list.size();
 		init(n);
 		std::copy(list.begin(), list.end(), mem);
 	}
 
 	template<typename T>
-	inline VectorN<T>::VectorN(const VectorN<T>& v)  {
+	inline VectorN<T>::VectorN(const VectorN<T>& v) {
 		init(v.size());
 		for (size_t i = 0; i < vsize; i++) {
 			(*this)[i] = v[i];
@@ -209,7 +210,7 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline VectorN<T>::VectorN(VectorN<T>&& v)  
+	inline VectorN<T>::VectorN(VectorN<T>&& v)
 		: vsize(v.vsize), memory_size(v.memory_size), mem(v.mem) {
 		v.mem = nullptr;
 		v.vsize = 0;
@@ -217,7 +218,7 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline VectorN<T>::~VectorN()  {
+	inline VectorN<T>::~VectorN() {
 		delete[] mem;
 	}
 
@@ -243,7 +244,7 @@ namespace std_plus {
 
 	template<typename T>
 	inline typename VectorN<T>::iterator VectorN<T>::begin() const noexcept {
-		return iterator(mem,0);
+		return iterator(mem, 0);
 	}
 
 	template<typename T>
@@ -309,7 +310,7 @@ namespace std_plus {
 #pragma endregion
 
 #pragma region algorithm
-	
+
 	template<typename T>
 	inline void VectorN<T>::swap(VectorN<T>& v) noexcept {
 		T* mem_tmp = v.mem;
@@ -322,7 +323,7 @@ namespace std_plus {
 		vsize = vsize_tmp;
 		memory_size = memory_size_tmp;
 	}
-	
+
 	template<typename T>
 	inline void VectorN<T>::erase(size_t s, size_t d) {
 		for (size_t i = s; i < vsize - d; i++) {
@@ -349,8 +350,8 @@ namespace std_plus {
 		size_t n = vsize;
 		long long ret = -1;
 		for (size_t i = n; i != 0; i--) {
-			if (mem[i-1] == obj) {
-				ret = i-1;
+			if (mem[i - 1] == obj) {
+				ret = i - 1;
 				break;
 			}
 		}
@@ -368,10 +369,10 @@ namespace std_plus {
 
 	template<typename T>
 	inline void VectorN<T>::insert(size_t i, const T& el) {
-		if (i>vsize) {
+		if (i > vsize) {
 			throw "out of range";
 		}
-		else if (i==vsize){
+		else if (i == vsize) {
 			push_back(el);
 			return;
 		}
@@ -478,7 +479,7 @@ namespace std_plus {
 #pragma region math
 
 	template<typename T>
-	inline VectorN<T> VectorN<T>::operator+(const VectorN<T> &v) const {
+	inline VectorN<T> VectorN<T>::operator+(const VectorN<T>& v) const {
 		size_t n = vsize;
 		if (n != v.size()) {
 			throw "math error";
@@ -491,7 +492,7 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline VectorN<T> VectorN<T>::operator-(const VectorN<T> &v) const {
+	inline VectorN<T> VectorN<T>::operator-(const VectorN<T>& v) const {
 		size_t n = vsize;
 		if (n != v.size()) {
 			throw "math error";
@@ -504,7 +505,7 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline T VectorN<T>::operator*(const VectorN<T> &v) const {
+	inline T VectorN<T>::operator*(const VectorN<T>& v) const {
 		if (vsize != v.vsize) {
 			throw "math error";
 		}
@@ -548,9 +549,14 @@ namespace std_plus {
 	}
 
 	template<typename T>
-	inline double VectorN<T>::norm() const {
+	inline double VectorN<T>::length() const {
 		double m = (*this) * (*this);
 		return std::sqrt(m);
+	}
+
+	template<typename T>
+	inline void VectorN<T>::normalize() {
+		(*this) *= (1 / length());
 	}
 
 #pragma endregion
@@ -573,7 +579,7 @@ namespace std_plus {
 
 #pragma region iterator
 
-	
+
 	template<typename T>
 	inline typename VectorN<T>::iterator& VectorN<T>::iterator::operator++() {
 		this->i++;
@@ -605,6 +611,6 @@ namespace std_plus {
 	inline bool VectorN<T>::iterator::operator!=(iterator x) {
 		return !(x == *(this));
 	}
-	
+
 #pragma endregion
 }
