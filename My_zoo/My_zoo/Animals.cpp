@@ -1,80 +1,126 @@
 #include "Animals.h"
 #include <iostream>
 
+// ------------------ Animal ------------------
 void Animal::do_some_noise() {}
 void Animal::attack() {}
 
 void Animal::move(Vectori2 p) {
-    pos = p;
+	pos = p;
 }
 
 void Animal::tp(Vectori2 p) {
-    pos = p;
+	pos = p;
 }
 
 char Animal::shapeToChar(Shape s) {
-    switch (s) {
-    case Shape::circle:   return 'O';
-    case Shape::cube:     return '#';
-    case Shape::triangle: return '^';
-    default:              return '?';
-    }
+	switch (s) {
+	case Shape::circle:   return 'O';
+	case Shape::cube:     return '#';
+	case Shape::triangle: return '^';
+	default:              return '?';
+	}
 }
 
+// ------------------ Mammal ------------------
 bool Mammal::can_traverse(Terrain terrain) const {
-    return terrain == Terrain::Land;
+	return terrain == Terrain::Land;
 }
-/*
-Minecraft::Minecraft() {
-    shape = Shape::cube;
-    color = Color::green;
-}
-*/
 
+// ------------------ Minecraft ------------------
 bool Minecraft::can_traverse(Terrain terrain) const {
-    return true;
+	return true;   // ходит везде
 }
 
+// ------------------ Bird ------------------
 bool Bird::can_traverse(Terrain terrain) const {
-    return true;
+	return true;   // летает над любым террейном
 }
 
 void Bird::fly() {
-    std::cout << "Bird flies\n";
+	std::cout << "Bird flies\n";
 }
 
+// ------------------ Fish ------------------
 bool Fish::can_traverse(Terrain terrain) const {
-    return terrain == Terrain::Water;
+	return terrain == Terrain::Water;
 }
 
 void Fish::swim() {
-    std::cout << "Fish swims\n";
+	std::cout << "Fish swims\n";
 }
 
+// ------------------ Cat ------------------
 Cat::Cat() {
-    shape = Shape::circle;
-    color = Color::orange;
-    size = 1.2;
-    fluffiness = 0.9;
+	shape = Shape::circle;
+	color = Color::orange;
+	size = 1.2;
+	fluffiness = 0.9;
 }
 
 void Cat::switch_killer_mode() {
-    is_killer_mode_on = !is_killer_mode_on;
+	is_killer_mode_on = !is_killer_mode_on;
 }
 
 void Cat::switch_killer_mode(bool flag) {
-    is_killer_mode_on = flag;
+	is_killer_mode_on = flag;
+}
+
+// ------------------ Bear ------------------
+Bear::Bear() {
+	shape = Shape::circle;
+	color = Color::brown;
+	size = 3.0;
+	fluffiness = 0.7;
+}
+
+// ------------------ Hamster ------------------
+Hamster::Hamster() {
+	shape = Shape::circle;
+	color = Color::gold;     // новый цвет
+	size = 0.5;
+	fluffiness = 0.95;
 }
 
 void Hamster::suddenly_die() {
-    HP = 0.0;
-    std::cout << "Hamster suddenly died\n";
+	HP = 0.0;
+	std::cout << "Hamster suddenly died\n";
+}
+
+// ------------------ Shark ------------------
+Shark::Shark() {
+	shape = Shape::triangle;
+	color = Color::silver;   // новый цвет
+	size = 4.0;
+	damage = 5.0;
 }
 
 void Shark::do_some_buisness() {
-    std::cout << "Shark is doing business\n";
+	std::cout << "Shark is doing business\n";
+}
+
+// ------------------ Just_a_fish ------------------
+Just_a_fish::Just_a_fish() {
+	shape = Shape::triangle;
+	color = Color::teal;     // новый цвет
+	size = 0.8;
+}
+
+// ------------------ Duck ------------------
+Duck::Duck() {
+	shape = Shape::circle;
+	color = Color::yellow;
+	size = 1.0;
+}
+
+// ------------------ Creeper ------------------
+Creeper::Creeper() {
+	shape = Shape::cube;
+	color = Color::lime;     // €рко-зелЄный
+	size = 1.8;
+	damage = 20.0;
 }
 
 void Creeper::explode() {
-    std::cout << "Creeper explodes!\n";
+	std::cout << "Creeper explodes!\n";
 }

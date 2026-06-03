@@ -1,129 +1,170 @@
 #pragma once
 #include "Vector2.h"
+#include <string>
 
 enum class Terrain {
-    Land,
-    Water
+	Land,
+	Water
 };
 
 class Animal {
 public:
-    enum class Shape {
-        circle, cube, triangle
-    };
-    enum class Color {
-        red, green, blue, yellow, brown, purple, orange, cyan, black, white
-    };
+	enum class Shape {
+		circle, cube, triangle
+	};
 
-    virtual std::string getSound() const { return "..."; }
-    static char shapeToChar(Shape s);
+	// Расширенная палитра
+	enum class Color {
+		red, green, blue, yellow, brown, purple, orange, cyan, black, white,
+		pink, lime, teal, maroon, navy, olive, silver, gold
+	};
 
-    virtual ~Animal() = default;
+	virtual ~Animal() = default;
 
-    // --- Геттеры ---
-    Vectori2 getPos()       const { return pos; }
-    double   getHP()        const { return HP; }
-    double   getSize()      const { return size; }
-    double   getDamage()    const { return damage; }
-    Shape    getShape()     const { return shape; }
-    Color    getColor()     const { return color; }
-    int      getID()        const { return id; }
+	// Чисто виртуальные – каждый конкретный вид должен озвучить себя
+	virtual std::string getSound() const = 0;
+	virtual std::string species() const = 0;   // "Cat", "Bear" и т.д.
 
-    // --- Сеттеры ---
-    void setPos(Vectori2 p) { pos = p; }
-    void setHP(double hp) { HP = hp; }
-    void setSize(double s) { size = s; }
-    void setDamage(double d) { damage = d; }
-    void setShape(Shape s) { shape = s; }
-    void setColor(Color c) { color = c; }
-    //void setID(int newId) { id = newId; }
+	static char shapeToChar(Shape s);
 
-    virtual bool can_traverse(Terrain terrain) const = 0;
-    virtual void move(Vectori2 p);
-    void tp(Vectori2 p);
+	// --- Геттеры ---
+	Vectori2 getPos()       const { return pos; }
+	double   getHP()        const { return HP; }
+	double   getSize()      const { return size; }
+	double   getDamage()    const { return damage; }
+	Shape    getShape()     const { return shape; }
+	Color    getColor()     const { return color; }
+	int      getID()        const { return id; }
 
-    friend class Zoo;   // Прямой доступ к полям для Zoo
+	// --- Сеттеры ---
+	void setPos(Vectori2 p) { pos = p; }
+	void setHP(double hp) { HP = hp; }
+	void setSize(double s) { size = s; }
+	void setDamage(double d) { damage = d; }
+	void setShape(Shape s) { shape = s; }
+	void setColor(Color c) { color = c; }
+
+	virtual bool can_traverse(Terrain terrain) const = 0;
+	virtual void move(Vectori2 p);
+	void tp(Vectori2 p);
+
+	friend class Zoo;
 
 protected:
-    double   size = 1.0;
-    double   HP = 10.0;
-    Vectori2 pos{ 0, 0 };
-    Shape    shape = Shape::circle;
-    Color    color = Color::black;
-    double   damage = 0.0;
-    int      id = 0;     // Уникальный идентификатор
+	Animal() = default;   // Нельзя создать Animal напрямую
 
-    virtual void do_some_noise();
-    virtual void attack();
+	double   size = 1.0;
+	double   HP = 10.0;
+	Vectori2 pos{ 0, 0 };
+	Shape    shape = Shape::circle;
+	Color    color = Color::black;
+	double   damage = 0.0;
+	int      id = 0;
+
+	virtual void do_some_noise();
+	virtual void attack();
 };
 
+// --- Абстрактное млекопитающее ---
 class Mammal : public Animal {
 protected:
-    double fluffiness = 0.5;
+	Mammal() = default;
+	double fluffiness = 0.5;
 public:
-    bool can_traverse(Terrain terrain) const override;
+	bool can_traverse(Terrain terrain) const override;
+	virtual std::string furDescription() const = 0;  // делает класс абстрактным
 };
 
+// --- Абстрактный "майнкрафт-стиль" ---
 class Minecraft : public Animal {
+protected:
+	Minecraft() = default;
 public:
-    //Minecraft();
-    bool can_traverse(Terrain terrain) const override;
+	bool can_traverse(Terrain terrain) const override;
+	virtual bool isHostile() const = 0;
 };
 
+// --- Абстрактная птица ---
 class Bird : public Animal {
+protected:
+	Bird() = default;
 public:
-    bool can_traverse(Terrain terrain) const override;
-    void fly();
+	bool can_traverse(Terrain terrain) const override;
+	void fly();
+	virtual int wingSpan() const = 0;
 };
 
+// --- Абстрактная рыба ---
 class Fish : public Animal {
+protected:
+	Fish() = default;
 public:
-    bool can_traverse(Terrain terrain) const override;
-    void swim();
+	bool can_traverse(Terrain terrain) const override;
+	void swim();
+	virtual bool isFreshwater() const = 0;
 };
 
-// конкретные виды
-class Cat : public Mammal {
-    bool is_killer_mode_on = false;
-public:
-    void switch_killer_mode();
-    void switch_killer_mode(bool flag);
-    Cat();
-    std::string getSound() const override { return "Meow!"; }
+// --- Конкретные виды ---
 
+class Cat : public Mammal {
+	bool is_killer_mode_on = false;
+public:
+	Cat();
+	void switch_killer_mode();
+	void switch_killer_mode(bool flag);
+
+	std::string getSound() const override { return "Meow!"; }
+	std::string species()   const override { return "Cat"; }
+	std::string furDescription() const override { return "Fluffy orange fur"; }
 };
 
 class Bear : public Mammal {
 public:
-    Bear() = default;
-    std::string getSound() const override { return "Growl!"; }
+	Bear();
+	std::string getSound() const override { return "Growl!"; }
+	std::string species()   const override { return "Bear"; }
+	std::string furDescription() const override { return "Thick brown fur"; }
 };
 
 class Hamster : public Mammal {
 public:
-    void suddenly_die();
-    std::string getSound() const override { return "Squeak!"; }
+	Hamster();
+	void suddenly_die();
+	std::string getSound() const override { return "Squeak!"; }
+	std::string species()   const override { return "Hamster"; }
+	std::string furDescription() const override { return "Soft golden fur"; }
 };
 
 class Shark : public Fish {
 public:
-    void do_some_buisness();
-    std::string getSound() const override { return "Doing business..."; }
+	Shark();
+	void do_some_buisness();
+	std::string getSound() const override { return "Doing business..."; }
+	std::string species()   const override { return "Shark"; }
+	bool isFreshwater()     const override { return false; }
 };
 
 class Just_a_fish : public Fish {
 public:
-    std::string getSound() const override { return "Blub!"; }
+	Just_a_fish();
+	std::string getSound() const override { return "Blub!"; }
+	std::string species()   const override { return "Just a fish"; }
+	bool isFreshwater()     const override { return true; }
 };
 
 class Duck : public Bird {
-
 public:
-    std::string getSound() const override { return "Quack!"; }
+	Duck();
+	std::string getSound() const override { return "Quack!"; }
+	std::string species()   const override { return "Duck"; }
+	int wingSpan()          const override { return 60; }  // см
 };
 
 class Creeper : public Minecraft {
 public:
-    void explode();
-    std::string getSound() const override { return "Sssss..."; }
+	Creeper();
+	void explode();
+	std::string getSound() const override { return "Sssss..."; }
+	std::string species()   const override { return "Creeper"; }
+	bool isHostile()        const override { return true; }
 };
