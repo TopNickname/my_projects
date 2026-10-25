@@ -229,7 +229,7 @@ namespace std_plus {
 	template<typename T>
 	inline T VectorN<T>::front() const {
 		if (vsize <= 0) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		return mem[0];
 	}
@@ -237,7 +237,7 @@ namespace std_plus {
 	template<typename T>
 	inline T VectorN<T>::back() const {
 		if (vsize <= 0) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		return mem[vsize - 1];
 	}
@@ -277,7 +277,7 @@ namespace std_plus {
 	template<typename T>
 	inline T VectorN<T>::pop_back() {
 		if (vsize == 0) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		vsize--;
 		T tmp = mem[vsize];
@@ -295,7 +295,7 @@ namespace std_plus {
 	template<typename T>
 	inline T& VectorN<T>::operator[](size_t i) {
 		if (i >= vsize) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		return mem[i];
 	}
@@ -303,7 +303,7 @@ namespace std_plus {
 	template<typename T>
 	inline const T& VectorN<T>::operator[](size_t i) const {
 		if (i >= vsize) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		return mem[i];
 	}
@@ -370,7 +370,7 @@ namespace std_plus {
 	template<typename T>
 	inline void VectorN<T>::insert(size_t i, const T& el) {
 		if (i > vsize) {
-			throw "out of range";
+			throw std::out_of_range("VectorN: index out of range");
 		}
 		else if (i == vsize) {
 			push_back(el);
@@ -482,7 +482,7 @@ namespace std_plus {
 	inline VectorN<T> VectorN<T>::operator+(const VectorN<T>& v) const {
 		size_t n = vsize;
 		if (n != v.size()) {
-			throw "math error";
+			throw std::length_error("VectorN: incompatible sizes");
 		}
 		VectorN<T> New_vec(n);
 		for (size_t i = 0; i < n; i++) {
@@ -495,7 +495,7 @@ namespace std_plus {
 	inline VectorN<T> VectorN<T>::operator-(const VectorN<T>& v) const {
 		size_t n = vsize;
 		if (n != v.size()) {
-			throw "math error";
+			throw std::length_error("VectorN: incompatible sizes");
 		}
 		VectorN<T> New_vec(n);
 		for (size_t i = 0; i < n; i++) {
@@ -507,7 +507,7 @@ namespace std_plus {
 	template<typename T>
 	inline T VectorN<T>::operator*(const VectorN<T>& v) const {
 		if (vsize != v.vsize) {
-			throw "math error";
+			throw std::length_error("VectorN: incompatible sizes");
 		}
 		T res = 0;
 		size_t n = vsize;
@@ -527,7 +527,7 @@ namespace std_plus {
 	template<typename T>
 	inline VectorN<T>& VectorN<T>::operator+=(const VectorN<T>& v) {
 		if (vsize != v.vsize) {
-			throw "math error";
+			throw std::length_error("VectorN: incompatible sizes");
 		}
 		for (size_t i = 0; i < vsize; i++) {
 			(*this)[i] += v[i];
@@ -539,7 +539,7 @@ namespace std_plus {
 	template<typename T>
 	inline VectorN<T>& VectorN<T>::operator-=(const VectorN<T>& v) {
 		if (vsize != v.vsize) {
-			throw "math error";
+			throw std::length_error("VectorN: incompatible sizes");
 		}
 		for (size_t i = 0; i < vsize; i++) {
 			(*this)[i] -= v[i];
