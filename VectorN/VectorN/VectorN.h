@@ -131,7 +131,8 @@ namespace std_plus {
 	inline void VectorN<T>::mem_resize(size_t new_size) {
 		T* new_mem = new T[new_size];
 		if (mem != nullptr) {
-			for (size_t i = 0; i < memory_size; ++i) {
+			size_t copy_n = std::min(memory_size, new_size);
+			for (size_t i = 0; i < copy_n; ++i) {
 				new_mem[i] = mem[i];
 			}
 		}
